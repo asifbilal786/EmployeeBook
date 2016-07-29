@@ -6,11 +6,25 @@ import { EventEmitter } from 'events';
 
 import assign from 'object-assign';
 
+import Realm from 'realm';
+
 import Employee     from '../Models/Employee';
 import Dispatcher   from '../Dispatcher';
 import AppConstants from '../Constants/AppConstants';
 
 var CHANGE_EVENT = 'change';
+
+Employee.schema = {
+  name: 'Employee',
+  properties: {
+    id: {type: 'string', indexed: true},
+    name:    {type: 'string'},
+    designation: {type: 'string'},
+    age: {type: 'int', optional: true},
+  }
+};
+
+let realm = new Realm({schema: [Employee]})
 
 
 
@@ -32,8 +46,7 @@ function fetchPreRenderedEmployess() {
       age: ages[i]
     }
 
-    let employee = new Employee(data);
-    employees.push(employee);
+    addEmployee(i, data)
   }
   console.log('New Employees fetched here in the Store.');
 
@@ -44,26 +57,37 @@ function fetchPreRenderedEmployess() {
 function addEmployee(id, employeeData) {
   employeeData.id = id;
   var employee = new Employee(employeeData);
-  _employees.push(employee);
+
+  realm.write(() => {
+      realm.create('Employee', employee);
+  })
   return employee;
 }
 
 function editEmployee(employee:Employee, employeeData) {
-  employee.edit(employeeData)
+
+  realm.write(() => {
+      employee.edit(employeeData)
+    });
   return employee
 }
 
 function deleteEmployee(employee:Employee) {
+
+  realm.write(() => {
+    realm.delete(employee);
+  });
+  /*
   let index = _employees.indexOf(employee)
   if (index != -1) {
     _employees.splice(index, 1);
     return index;
-  }
+  }*/
 }
 
 var EmployeeStore = assign({}, EventEmitter.prototype, {
   getAll() {
-    return _employees;
+    return realm.objects('Employee');
   },
 
   getEmployee(employeeId) {

@@ -2,18 +2,23 @@
 
 'use strict';
 
+import Utils from '../Utils/Utils';
+
 export default class Employee {
 
-  id: number;
+  id: string;
   name: string;
   designation: string;
-  age: number;
+  age: int;
 
   constructor(data) {
-    this.id = data.id;
-    this.name = data.name;
-    this.designation = data.designation;
-    this.age = data.age;
+    this.id = Utils.guid();
+    if (data) {
+      this.name = data.name;
+      this.designation = data.designation;
+      this.age = data.age;
+    }
+
   }
 
   edit(data) {
@@ -21,5 +26,4 @@ export default class Employee {
     this.designation = data.designation;
     this.age = data.age;
   }
-
 }

@@ -12,7 +12,8 @@
     "react-mixin": "^2.0.2",
     "react-native": "^0.24.1",
     "react-native-gifted-messenger": "^0.1.4",
-    "react-native-keyboardevents": "^0.4.5"
+    "react-native-keyboardevents": "^0.4.5",
+    "realm": "^0.13.2"
   },
   "devDependencies": {
     "flow-bin": "^0.24.0"
