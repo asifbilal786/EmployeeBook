@@ -1,0 +1,20 @@
+{
+  "name": "EmployeeBook",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "deco-ride-share-demo": "^1.1.0",
+    "events": "^1.1.1",
+    "react": "^0.14.8",
+    "react-mixin": "^2.0.2",
+    "react-native": "^0.24.1",
+    "react-native-gifted-messenger": "^0.1.4",
+    "react-native-keyboardevents": "^0.4.5"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.24.0"
+  }
+}
